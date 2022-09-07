@@ -24,24 +24,14 @@ bool run(string name)
 	}
 	else
 	{
-		/*while (!file.eof())
-		{
-			file >> ch;
-			if (ch == '.' || ch == '!' || ch == '?')
-			{
-				++n;
-			}
-
-		}*/
-		while (true)
+	while (true)
 		{
 			file >> ch;
 			if (!file)
 				break;
 			else if (ch == '.' || ch == '!' || ch == '?')
 			{				
-					++n;
-				
+				++n;
 			}
 		}
 		if (n < 3)
