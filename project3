@@ -74,14 +74,13 @@ void exit(string name)
 	char* array = new char[n];
 
 	int i = 0;
-	char word;
+	char symbol;
 	while (true)
 	{
 		word = file.get();
 		if (!file)
 			break;
-		array[i] = word;
-		
+		array[i] = symbol;
 		
 		++i;
 	}
