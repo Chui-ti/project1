@@ -4,20 +4,20 @@
 
 using namespace std;
 
-bool run(string name)
+bool run(string name) //функция проверки неуспешных сценариев
 {
 	ifstream file;
 	char ch;
 	int n = 0, f = 0;
 
-	file.open(name + ".txt");
+	file.open(name + ".txt"); //открытие файла пользователя
 
-	if (!file.is_open())
+	if (!file.is_open()) // проверка, открывается ли файл
 	{
 		cout << "Oops... Problems with file";
 		f = 1;
 	}
-	else if (file.peek() == EOF)
+	else if (file.peek() == EOF) // проверка на наличие текста внутри файла
 	{
 		cout << "File is empty";
 		f = 1;
@@ -27,86 +27,86 @@ bool run(string name)
 		while (true)
 		{
 			file >> ch;
-			if (!file)
+			if (!file) //если текст в файле закончился, цикл прекращается
 				break;
-			else if (ch == '.' || ch == '!' || ch == '?')
+			else if (ch == '.' || ch == '!' || ch == '?') // если встретился символ-завершение, значит в файле закончилось предложение
 			{				
-					++n;
-				
+				++n; //считаем количество предложений
 			}
 		}
-		if (n < 3)
+		if (n < 3) // если в файле предложений меньше трех, программа не будет выполняться
 		{
 			cout << "We didn't find three sentences in the file";
 			f = 1;
 		}
 	}
 	
-	file.close();
+	file.close(); //закрываем файл
 
-	if (f == 1)
+	if (f == 1) //если один из неуспешных сценариев произошел, вернем "ложь" для завершения работы программы
 		return false;
 	else
-		return true;
+		return true; //вернем "правду", если все условия для работы программы соблюдены
 }
-void output(string name)
+void output(string name) //функция вывода предложений в обратном порядке
 {
 	ifstream file;
 	char ch;
 	int k = 0, n = 0;
 
-	file.open(name + ".txt");
+	file.open(name + ".txt"); //открываем файл
 
 	while (true)
 	{
-		ch = file.get();
+		ch = file.get(); //получаем по одному элементу из файла
 		if (!file)
-			break;
-		++n;
-		if (ch == '.' || ch == '!' || ch == '?')
+			break; //если текст закончился, выходим из цикла
+		++n; //считаем количество символов в предложениях
+		if (ch == '.' || ch == '!' || ch == '?') //если встречается знак-завершение, значит одно предложение закончилось
 		{
-			++k;
-			if (k == 3)
+			++k; //считаем количество предложений
+			if (k == 3) //если встретили 3 предложения, остальные не учитываем, выходим из цикла
 				break;
 		}
 
 	}
-	file.seekg(0);
-	char* array = new char[n];
+	file.seekg(0); //выставляем "курсор" на первый элемент в файле
+	char* array = new char[n]; //создаем массив для хранения предложений по символам
 
 	int i = 0;
 	char symbol;
 	while (true)
 	{
-		word = file.get();
-		if (!file)
+		symbol = file.get(); // получаем предложение по символам 
+		if (!file) //завершаем цикл, если дошли до конца файла
 			break;
-		array[i] = symbol;
+		array[i] = symbol; //запоминаем в массив предложение
 				
 		++i;
 	}
 
-	for (int i = 0; i < n; ++i)
+	for (int i = 0; i < n; ++i) // цикл вывода предложений
 	{ 
+		
 		cout << array[i];
 		
 	}
-	file.close();
+	file.close(); // закрытие файла
 
 
 }
-int main()
+int main() //главная функция, в которой вызываем остальные
 {
 	ifstream file;
 
 	string name;
 	
+	cout << "Enter file name: ";
+	cin >> name; //запрашиваем у пользователя имя файла
 
-	cin >> name; 
-
-	if (run(name))
+	if (run(name))//вызываем функцию проверки неуспешных сценариев
 	{
-		output(name);
+		output(name);//вызываем функцию для работы с предложениями
 
 	}
 
